@@ -4,7 +4,7 @@
 
 microk8s ctr images rm docker.io/library/mcs_community:0.1
 
-rm mcs_community:0.1
+rm mcs_community:0.1.tar
 
 docker save hpdevelop/mcs_community:0.1 > mcs_community:0.1.tar
 
