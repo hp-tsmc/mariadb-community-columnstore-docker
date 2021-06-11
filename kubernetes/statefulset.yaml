@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mcs-community
+  labels:
+    app: mcs-community
+spec:
+  serviceName: mcs-community
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcs-community
+  template:
+    metadata:
+      labels:
+        app: mcs-community
+    spec:
+      terminationGracePeriodSeconds: 1800
+      containers:
+      - name: mcs-community
+        image: hpdevelop/mcs_community:0.1
+        imagePullPolicy: Never
+        volumeMounts:
+        - name: mcs-community-data
+          mountPath: /data1
+        - name: mcs-community-storagemanager
+          mountPath: /storagemanager
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+          requests:
+            cpu: 1
+            memory: 2Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: mcs-community-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: microk8s-hostpath
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: mcs-community-storagemanager
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: microk8s-hostpath
+      resources:
+        requests:
+          storage: 1Gi
