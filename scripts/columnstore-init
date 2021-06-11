@@ -55,6 +55,10 @@ for i in $PROGS ; do
   fi
 done
 
+rm -rf /var/lib/columnstore/data1
+mkdir -p /data1/systemFiles/dbrm
+touch /data1/systemFiles/dbrm/BRM_saves_journal
+
 # Start System
 echo Starting...
 

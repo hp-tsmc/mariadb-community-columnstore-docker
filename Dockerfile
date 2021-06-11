@@ -62,6 +62,9 @@ RUN chmod +x /usr/bin/tini \
     sed -i 's|set daemon\s.30|set daemon 5|g' /etc/monitrc && \
     sed -i 's|#.*with start delay\s.*240|  with start delay 60|g' /etc/monitrc
 
+RUN sed -i 's|<DBRoot1>/var/lib/columnstore/data1</DBRoot1>|<DBRoot1>/data1</DBRoot1>|g' /etc/columnstore/Columnstore.xml
+RUN sed -i 's|/var/lib/columnstore/storagemanager|/storagemanager|g' /etc/columnstore/storagemanager.cnf
+
 # Expose MariaDB port
 EXPOSE 3306
 

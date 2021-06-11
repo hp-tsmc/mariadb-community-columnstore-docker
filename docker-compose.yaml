@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  pm1:
+    build:
+      context: .
+      args:
+        TOKEN: ${MARIADB_ENTERPRISE_TOKEN}
+    image: hpdevelop/mcs_community:0.1
+    hostname: ${PM1}
+    container_name: ${PM1}
+    volumes:
+      - /tmp/community/data1:/var/lib/columnstore/data1
+      - /tmp/community/data1:/data1
+      - /tmp/mcs/storagemanager:/storagemanager
+    env_file:
+      - .env
+    ports:
+      - 3307:3306
+    mem_limit: ${COLUMNSTORE_RAM}
