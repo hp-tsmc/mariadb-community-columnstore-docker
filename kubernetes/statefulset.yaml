@@ -25,6 +25,8 @@ spec:
           mountPath: /data1
         - name: mcs-community-storagemanager
           mountPath: /storagemanager
+        - name: mcs-community-mysql
+          mountPath: /var/lib/mysql
         resources:
           limits:
             cpu: 1
@@ -35,6 +37,14 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: mcs-community-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: microk8s-hostpath
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: mcs-community-mysql
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: microk8s-hostpath

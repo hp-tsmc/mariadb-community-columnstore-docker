@@ -70,7 +70,7 @@ RUN sed -i 's|/var/lib/columnstore/storagemanager|/storagemanager|g' /etc/column
 EXPOSE 3306
 
 # Create persistent volumes
-VOLUME ["/etc/columnstore", "/var/lib/columnstore", "/var/lib/mysql"]
+#VOLUME ["/etc/columnstore", "/var/lib/columnstore", "/var/lib/mysql"]
 
 # Copy entrypoint to image
 COPY scripts/docker-entrypoint.sh /usr/bin/

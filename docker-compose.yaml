@@ -9,7 +9,9 @@ services:
     volumes:
     #   - /tmp/community/data1:/var/lib/columnstore/data1
       - /tmp/community/data1:/data1
-      - /tmp/mcs/storagemanager:/storagemanager
+      - /tmp/community/storagemanager:/storagemanager
+      - /tmp/community/mysql:/var/lib/mysql
+    # command: sleep infinity
     env_file:
       - .env
     ports:

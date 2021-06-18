@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Variables
-IFLAG=/etc/columnstore/container-initialized
+IFLAG=/data1/container-initialized
 LOG_PREFIX=/var/log/mariadb/columnstore
 MCS_INSTALL_BIN=/usr/bin
 PROGS='StorageManager load_brm workernode controllernode PrimProc ExeMgr DMLProc DDLProc WriteEngineServer'
@@ -10,7 +10,10 @@ export LD_PRELOAD=$JEMALLOC_PATH
 
 # Intialize Container If Necessary
 if [ ! -e $IFLAG ]; then
+  echo "I did not see the flag. GG"
   $MCS_INSTALL_BIN/columnstore-init &> $LOG_PREFIX/columnstore-init.log
+else
+  echo "I see the flag"
 fi
 
 # Verify All Programs Are Available

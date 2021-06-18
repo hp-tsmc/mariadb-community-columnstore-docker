@@ -8,7 +8,7 @@ CAP_PCT=95 #Leave overhead for other Docker host processes
 MAX_RAM=$(free -m | awk 'NR==2{printf "%d", $2*.'$CAP_PCT' }')
 TOTALUMMEMORY=$( echo $MAX_RAM / 4  | bc )M
 NUMBLOCKSPCT=$( echo $MAX_RAM / 2  | bc )M
-IFLAG=/etc/columnstore/container-initialized
+IFLAG=/data1/container-initialized
 JEMALLOC_PATH="/usr/lib64/libjemalloc.so.2"
 LOG_PREFIX=/var/log/mariadb/columnstore
 MCS_INSTALL_BIN=/usr/bin
@@ -58,6 +58,7 @@ done
 rm -rf /var/lib/columnstore/data1
 mkdir -p /data1/systemFiles/dbrm
 touch /data1/systemFiles/dbrm/BRM_saves_journal
+chown -R mysql:mysql /var/lib/mysql
 
 # Start System
 echo Starting...
@@ -100,6 +101,8 @@ echo DMLProc PID = $!
 touch $LOG_PREFIX/ddlproc.log && chmod 666 $LOG_PREFIX/ddlproc.log
 $MCS_INSTALL_BIN/DDLProc &> $LOG_PREFIX/ddlproc.log &
 echo DDLProc PID = $!
+
+post-mysqld-install
 
 $MCS_INSTALL_BIN/dbbuilder 7 &> $LOG_PREFIX/dbbuilder.log
 
