@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Variables
-IFLAG=/data1/container-initialized
+IFLAG=/etc/columnstore/container-initialized
 LOG_PREFIX=/var/log/mariadb/columnstore
 MCS_INSTALL_BIN=/usr/bin
 PROGS='StorageManager load_brm workernode controllernode PrimProc ExeMgr DMLProc DDLProc WriteEngineServer'
