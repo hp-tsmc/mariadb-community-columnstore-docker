@@ -8,7 +8,7 @@ CAP_PCT=95 #Leave overhead for other Docker host processes
 MAX_RAM=$(free -m | awk 'NR==2{printf "%d", $2*.'$CAP_PCT' }')
 TOTALUMMEMORY=$( echo $MAX_RAM / 4  | bc )M
 NUMBLOCKSPCT=$( echo $MAX_RAM / 2  | bc )M
-IFLAG=/data1/container-initialized
+IFLAG=/etc/columnstore/container-initialized
 JEMALLOC_PATH="/usr/lib64/libjemalloc.so.2"
 LOG_PREFIX=/var/log/mariadb/columnstore
 MCS_INSTALL_BIN=/usr/bin
