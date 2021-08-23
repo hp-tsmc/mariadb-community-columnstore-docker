@@ -29,7 +29,12 @@ RUN dnf -y install bind-utils \
     snappy \
     sudo \
     tcl \
-    vim
+    vim \
+    nginx
+
+COPY nginx.conf /etc/nginx/
+
+#RUN chgrp -R 0 /run && chmod -R g+rwX /run
 
 # Default env variables
 ENV LC_ALL en_US.UTF-8
@@ -62,15 +67,11 @@ RUN chmod +x /usr/bin/tini \
     sed -i 's|set daemon\s.30|set daemon 5|g' /etc/monitrc && \
     sed -i 's|#.*with start delay\s.*240|  with start delay 60|g' /etc/monitrc
 
-#RUN sed -i 's|<DBRoot1>/var/lib/columnstore/data1</DBRoot1>|<DBRoot1>/data1</DBRoot1>|g' /etc/columnstore/Columnstore.xml
-RUN sed -i 's|/var/lib/columnstore/data1|/data1|g' /etc/columnstore/Columnstore.xml
-RUN sed -i 's|/var/lib/columnstore/storagemanager|/storagemanager|g' /etc/columnstore/storagemanager.cnf
-
 # Expose MariaDB port
 EXPOSE 3306
-
+EXPOSE 8080
 # Create persistent volumes
-#VOLUME ["/etc/columnstore", "/var/lib/columnstore", "/var/lib/mysql"]
+VOLUME ["/etc/columnstore", "/var/lib/columnstore", "/var/lib/mysql"]
 
 # Copy entrypoint to image
 COPY scripts/docker-entrypoint.sh /usr/bin/
